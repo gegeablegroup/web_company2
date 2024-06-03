@@ -26,6 +26,10 @@
 //   };
 // }
 
+export default function SingleArticlePage() {
+  return null;
+}
+
 // export default function SingleArticlePage(props: Props) {
 //   const contentRef = useRef<HTMLDivElement | null>(null);
 //   const [readTime, setReadTime] = useState('');
