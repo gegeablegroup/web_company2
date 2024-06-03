@@ -17,7 +17,7 @@ export default function BlogIndexPage({ posts }: InferGetStaticPropsType<typeof 
           <ArticleCard
             key={singlePost.slug}
             title={singlePost.meta.title}
-            description={singlePost.meta.description}
+            description={singlePost.meta.description ? singlePost.meta.description : ''}
             imageUrl={singlePost.meta.imageUrl}
             slug={singlePost.slug}
           />
