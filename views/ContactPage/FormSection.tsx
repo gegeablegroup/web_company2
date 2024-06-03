@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from 'components/Button';
 import Input from 'components/Input';
@@ -15,10 +15,10 @@ interface EmailPayload {
 export default function FormSection() {
   const [hasSuccessfullySentMail, setHasSuccessfullySentMail] = useState(false);
   const [hasErrored, setHasErrored] = useState(false);
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm<EmailPayload>();
   const { isSubmitSuccessful, isSubmitting, isSubmitted, errors } = formState;
 
-  async function onSubmit(payload: EmailPayload) {
+  const onSubmit: SubmitHandler<EmailPayload> = async (payload) => {
     try {
       const res = await fetch('/api/sendEmail', {
         method: 'POST',
@@ -37,7 +37,7 @@ export default function FormSection() {
     }
 
     setHasSuccessfullySentMail(true);
-  }
+  };
 
   const isSent = isSubmitSuccessful && isSubmitted;
   const isDisabled = isSubmitting || isSent;
@@ -50,7 +50,7 @@ export default function FormSection() {
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        {hasErrored && <ErrorMessage>Couldn&apos;t send email. Please try again.</ErrorMessage>}
+        {hasErrored && <ErrorMessage>Couldn't send email. Please try again.</ErrorMessage>}
         <InputGroup>
           <InputStack>
             {errors.name && <ErrorMessage>Name is required</ErrorMessage>}
